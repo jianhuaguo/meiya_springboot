@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../static/vue.js"></script>
+    <style>
+        .inner{
+            height: 150px;
+            background-color:darkblue;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+        <input type="text" v-bind:value="msg">
+    <input type="text" v-model="msg">
+    <a href="https://www.baidu.com">百度</a>
+</div>
+<script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+    msg:'蓝天蓝天这是白云'
+
+        }
+    })
+</script>
+</body>
+</html>
