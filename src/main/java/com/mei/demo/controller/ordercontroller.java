@@ -3,15 +3,13 @@ package com.mei.demo.controller;
 import com.mei.demo.Algorithm.LeastSquare;
 import com.mei.demo.Domain.OrderItem;
 import com.mei.demo.Domain.homepage4;
+import com.mei.demo.Domain.comment;
 import com.mei.demo.Service.orderservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus.Series;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.text.DateFormat;
@@ -149,5 +147,18 @@ public class ordercontroller {
     public ArrayList<homepage4> homepage4()
     {
         return orderservice.homepage4();
+    }
+
+
+    @CrossOrigin
+    @RequestMapping(value = "homepage5")
+    public ArrayList<comment> homepage5(){
+        return orderservice.bestcomment();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "homepage6")
+    public ArrayList<comment> homepage6(){
+        return orderservice.worsecomment();
     }
 }

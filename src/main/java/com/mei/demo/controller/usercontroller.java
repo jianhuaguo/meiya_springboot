@@ -31,7 +31,7 @@ public class usercontroller {
         String name=(String)map.get("searchname");
         //pagenum当前的页 1是写死的每页固定大小
         ArrayList<User> list=new ArrayList<User>();
-        Page<Store> page=PageHelper.startPage(pageNum,1);
+        Page<Store> page=PageHelper.startPage(pageNum,5);
         //list=userservice.selectall();
         list=userservice.selectbyname(name);
         Map<String, Object> map_send= new HashMap<String, Object>();

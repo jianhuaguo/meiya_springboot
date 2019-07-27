@@ -37,7 +37,7 @@ public class storecontroller {
         int pageNum=(Integer)map.get("currentPage");
         //pagenum当前的页 1是写死的每页固定大小
         ArrayList<Store> list=new ArrayList<Store>();
-        Page<Store> page=PageHelper.startPage(pageNum,1);
+        Page<Store> page=PageHelper.startPage(pageNum,5);
       //list=storeservice.selectAll();
         list=storeservice.selectbyname(name);
         //PageInfo pageInfo=new PageInfo<>(list,1);

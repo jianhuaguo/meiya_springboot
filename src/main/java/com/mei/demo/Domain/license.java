@@ -8,10 +8,22 @@ public class license {
     String license;
     String realname;
     String id_card;
-    Integer id_number;
+    Long id_number;
     Date update_time;
     String storename;
     String description;
+    String phone;
+
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 
     public Integer getId() {
         return id;
@@ -53,11 +65,11 @@ public class license {
         this.id_card = id_card;
     }
 
-    public Integer getId_number() {
+    public Long getId_number() {
         return id_number;
     }
 
-    public void setId_number(Integer id_number) {
+    public void setId_number(Long id_number) {
         this.id_number = id_number;
     }
 

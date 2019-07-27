@@ -3,6 +3,7 @@ package com.mei.demo.Dao;
 
 import com.mei.demo.Domain.homepage4;
 import com.mei.demo.Domain.OrderItem;
+import com.mei.demo.Domain.comment;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public interface orderdao {
     int yesterdaycount();
 
 
-
+    //返回今日各个菜系销售额度最高的商家
     @Select("SELECT max(sumpay) as sumpay,max(storename) as storename,max(count) as countpay,(SELECT name FROM my_category where categoryid=my_category.id) as categoryname " +
             " from " +
             " (SELECT my_store.id as storeid,my_store.storename as storename,sum(my_order.payment) as sumpay,my_store.category_id as categoryid,count(payment) as count from my_order LEFT JOIN my_store on  my_order.store_id=my_store.id " +
@@ -46,5 +47,25 @@ public interface orderdao {
             " as newtable " + " GROUP BY " +
             " categoryid " + " ORDER BY " + " max(sumpay) desc ")
     public ArrayList<homepage4> homepage4();
+
+    //返回今日最受好评的前三名商家 同时最少订单要超过十单
+    @Select("select " +
+            " storename,avg(score) as score,count(score) as count FROM my_comment LEFT JOIN my_store on my_comment.sid=my_store.id  " +
+            " where CAST(my_comment.create_time as DATE) =CAST(NOW() as date) " +
+            " GROUP BY sid  " +
+            " HAVING COUNT(score)>1 " +
+            " order by avg(Score) desc LIMIT 0,3")
+    public ArrayList<comment> bestcomment();
+
+
+    //返回今日最受差评的前三名商家 同时最少订单要超过十单
+    @Select("select  " +
+            "storename,avg(score) as score,count(score) as count FROM my_comment LEFT JOIN my_store on my_comment.sid=my_store.id  " +
+            "where CAST(my_comment.create_time as DATE) =CAST(NOW() as date) " +
+            "GROUP BY sid  " +
+            "HAVING COUNT(score)>1 " +
+            "order by avg(Score) asc LIMIT 0,3")
+    public ArrayList<comment> worstcomment();
+
 
 }

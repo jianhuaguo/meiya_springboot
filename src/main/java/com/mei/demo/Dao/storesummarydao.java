@@ -35,4 +35,7 @@ public interface storesummarydao {
     public  ArrayList<storesummary> orderyear(String orderyear);
 
 
+    //返回今日份评分最高前三名和最差的商家
+
+
 }
