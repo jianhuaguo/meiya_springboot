@@ -5,6 +5,8 @@ import com.mei.demo.Service.adminservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.mei.demo.util.JuheDemo;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -39,6 +41,14 @@ public class admincontroller {
 
         return countadmin;
     }
+    @CrossOrigin
+    @RequestMapping(value = "/login1",method = RequestMethod.POST)
+    public void adminlogin1(HttpServletRequest request, @RequestBody Map map) throws Exception
+    {
+        String phone=(String)map.get("phone");
+        request.getSession().setAttribute("login","yes");
+        request.getSession().setAttribute("admin",phone);
+    }
 
     @CrossOrigin
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
@@ -72,5 +82,28 @@ public class admincontroller {
         String real_password=Encryption.MD5(password);
         System.out.println("change:"+real_password);
         return adminservice.changepassword(id,real_password);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/admin/phone",method = RequestMethod.POST)
+    public int selectphone(@RequestBody Map map)
+    {
+        String phone=(String)map.get("phone");
+        return adminservice.selectphone(phone);
+    }
+
+
+    @CrossOrigin
+    @RequestMapping(value = "/admin/yanzheng",method = RequestMethod.POST)
+    public String sendcode(@RequestBody Map map)
+    {
+        String phone=(String)map.get("phone");
+        long yanzhengsheng=Math.round(Math.random()*10000);
+        String  yanzheng= yanzhengsheng+"";
+        JuheDemo.mobileQuery(phone,yanzheng);
+
+        return yanzheng;
+
+
     }
 }

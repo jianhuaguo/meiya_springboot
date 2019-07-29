@@ -28,6 +28,11 @@ public class adminservice {
         return admindao.updateadminpassword(id,password);
     }
 
+    public int selectphone(String phone)
+    {
+        return admindao.selectphone(phone);
+    }
+
 
 }
 

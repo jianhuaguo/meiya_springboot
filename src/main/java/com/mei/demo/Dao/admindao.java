@@ -18,4 +18,7 @@ public interface admindao {
 
     @Update("update  my_admin set PASSWORD = #{password} WHERE id=#{id}")
     public int updateadminpassword(int id,String password);
+
+    @Select("select count(*) from my_admin where phone= #{phone}")
+    public int selectphone(String phone);
 }
