@@ -33,6 +33,9 @@ public class adminservice {
         return admindao.selectphone(phone);
     }
 
-
+    public admin selectbyphone(String phone)
+    {
+        return admindao.selectbyphone(phone);
+    }
 }
 

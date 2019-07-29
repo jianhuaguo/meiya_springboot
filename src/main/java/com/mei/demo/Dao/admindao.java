@@ -1,5 +1,6 @@
 package com.mei.demo.Dao;
 
+import com.mei.demo.Domain.admin;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -21,4 +22,7 @@ public interface admindao {
 
     @Select("select count(*) from my_admin where phone= #{phone}")
     public int selectphone(String phone);
+
+    @Select("select * from my_admin where phone=#{phone}")
+    public admin selectbyphone(String phone);
 }

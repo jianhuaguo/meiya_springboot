@@ -1,5 +1,6 @@
 package com.mei.demo.controller;
 
+import com.mei.demo.Domain.admin;
 import com.mei.demo.util.Encryption;
 import com.mei.demo.Service.adminservice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,11 @@ public class admincontroller {
     public void adminlogin1(HttpServletRequest request, @RequestBody Map map) throws Exception
     {
         String phone=(String)map.get("phone");
+        admin admin=adminservice.selectbyphone(phone);
+        request.getSession().setAttribute("id",admin.getId());
         request.getSession().setAttribute("login","yes");
-        request.getSession().setAttribute("admin",phone);
+        request.getSession().setAttribute("admin",admin.getName());
+
     }
 
     @CrossOrigin
@@ -98,7 +102,7 @@ public class admincontroller {
     public String sendcode(@RequestBody Map map)
     {
         String phone=(String)map.get("phone");
-        long yanzhengsheng=Math.round(Math.random()*10000);
+        long yanzhengsheng=Math.round(Math.random()*1000000);
         String  yanzheng= yanzhengsheng+"";
         JuheDemo.mobileQuery(phone,yanzheng);
 
