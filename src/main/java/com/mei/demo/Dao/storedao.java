@@ -58,4 +58,8 @@ public interface storedao {
     int countstore();
 
 
+    @Select("select count(*) from my_store where id= #{id}")
+    int selectcountbyid(int id);
+
+
 }

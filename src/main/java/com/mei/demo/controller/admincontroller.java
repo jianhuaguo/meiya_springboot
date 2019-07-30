@@ -19,7 +19,7 @@ public class admincontroller {
     @Autowired
     private adminservice adminservice;
 
-
+    //管理员 根据账号和密码登录
     @CrossOrigin
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public int adminlogin(HttpServletRequest request, @RequestBody Map map) throws Exception
@@ -29,7 +29,7 @@ public class admincontroller {
         String password=(String) map.get("password");
         String real_password=Encryption.MD5(password);
         System.out.println("login:"+real_password);
-//        return real_password;
+
         int countadmin=adminservice.login(id,real_password);
         if(countadmin>0)
         {
@@ -42,6 +42,8 @@ public class admincontroller {
 
         return countadmin;
     }
+
+    //通过手机号获得管理的姓名和编号
     @CrossOrigin
     @RequestMapping(value = "/login1",method = RequestMethod.POST)
     public void adminlogin1(HttpServletRequest request, @RequestBody Map map) throws Exception
@@ -54,6 +56,7 @@ public class admincontroller {
 
     }
 
+    //管理员登出 session失效
     @CrossOrigin
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public int adminloginout(HttpServletRequest request) throws Exception
@@ -64,6 +67,7 @@ public class admincontroller {
         return 1;
     }
 
+    //从session中读取管理员的名字 一直挂在页面的上头
     @CrossOrigin
     @RequestMapping(value = "/adminname")
     public Map<String,Object> adminname(HttpServletRequest request)
@@ -77,6 +81,7 @@ public class admincontroller {
         return reponsemap;
     }
 
+    //管理员的修改密码
     @CrossOrigin
     @RequestMapping(value = "/admin/changepassword")
     public int changeadminpassword(@RequestBody Map map)
@@ -88,6 +93,7 @@ public class admincontroller {
         return adminservice.changepassword(id,real_password);
     }
 
+    //判断手机号登录的时候 这个手机号在数据库中有没有注册
     @CrossOrigin
     @RequestMapping(value = "/admin/phone",method = RequestMethod.POST)
     public int selectphone(@RequestBody Map map)
@@ -97,6 +103,7 @@ public class admincontroller {
     }
 
 
+    //前端发来发送验证码的请求 这边向聚合数据发出验证码请求 并向前端送出验证码进行匹配
     @CrossOrigin
     @RequestMapping(value = "/admin/yanzheng",method = RequestMethod.POST)
     public String sendcode(@RequestBody Map map)

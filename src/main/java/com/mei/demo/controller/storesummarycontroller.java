@@ -17,6 +17,7 @@ public class storesummarycontroller {
     @Autowired
     private storesummaryservice storesummaryservice;
 
+    //返回各个商家的某一日的日报
     @CrossOrigin
     @RequestMapping(value = "/storesummary/day")
     public  ArrayList<storesummary> orderday(@RequestBody Map map)
@@ -25,6 +26,7 @@ public class storesummarycontroller {
         return storesummaryservice.orderday(orderday);
     }
 
+    //返回某一个商家某一月的月报
     @CrossOrigin
     @RequestMapping(value = "/storesummary/month")
     public  ArrayList<storesummary> ordermonth(@RequestBody Map map)
@@ -33,6 +35,7 @@ public class storesummarycontroller {
         return storesummaryservice.ordermonth(ordermonth);
     }
 
+    //返回某一商家某一年的年报
     @CrossOrigin
     @RequestMapping(value = "/storesummary/year")
     public  ArrayList<storesummary> orderyear(@RequestBody Map map)

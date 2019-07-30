@@ -28,6 +28,10 @@ public class storecontroller {
     @Autowired
     private storeservice storeservice;
 
+    /*
+    返回商家列表
+    包括了分页功能和搜索框功能
+     */
     @CrossOrigin
     @RequestMapping(value = "/store/show",method = RequestMethod.POST)
     public Map<String,Object> storeinfo(@RequestBody Map map) throws Exception
@@ -35,20 +39,19 @@ public class storecontroller {
     {
         String name=(String)map.get("searchname");
         int pageNum=(Integer)map.get("currentPage");
-        //pagenum当前的页 1是写死的每页固定大小
+        //pagenum当前的页 5是写死的每页固定大小
         ArrayList<Store> list=new ArrayList<Store>();
         Page<Store> page=PageHelper.startPage(pageNum,5);
-      //list=storeservice.selectAll();
+
         list=storeservice.selectbyname(name);
-        //PageInfo pageInfo=new PageInfo<>(list,1);
-       // model.addAttribute("storelist",pageInfo);
+
 
         Map<String, Object> map_send= new HashMap<String, Object>();
         map_send.put("storedata",page);
         map_send.put("number",page.getTotal());
         map_send.put("name",name);
         return map_send;
-       // return "storeshow";
+
     }
     //添加用户 跳转到详情
     @RequestMapping(value = "/store/add")
@@ -81,6 +84,7 @@ public class storecontroller {
         return "storeshow";
     }
 
+    //添加商家
     @CrossOrigin
     @RequestMapping(value = "/store/added",method = RequestMethod.POST)
     public int addedstore(@RequestBody Store store)
@@ -89,14 +93,12 @@ public class storecontroller {
 
         int suc=storeservice.insertstore(newstore);
 
-//        ArrayList<Store> list=new ArrayList<Store>();
-//        PageHelper.startPage(1,1);
-//        list=storeservice.selectAll();
-//        PageInfo pageInfo=new PageInfo<>(list,1);
-//        model.addAttribute("storelist",pageInfo);
+
         return suc;
     }
-    //更新完跳转到所有用户的页面
+
+
+    //更新完跳转到所有商家的页面
     @CrossOrigin
     @RequestMapping(value="/store/edited",method = RequestMethod.POST)
     public int editedstore(@RequestBody Store store)
@@ -115,6 +117,7 @@ public class storecontroller {
         return statu;
     }
 
+    //更新某一个商家的状态 包括冻结和解冻
     @CrossOrigin
     @RequestMapping(value="/store/changestatus/{id}",method = RequestMethod.PUT)
     public int changestore(@PathVariable("id")int id)
@@ -123,6 +126,7 @@ public class storecontroller {
     }
 
 
+    //统计商家的大概情况 包括注册商家 运营商家和这个月注册的商家
     @CrossOrigin
     @RequestMapping(value = "/homepage2")
     public Map<String,Object> homepage2()
@@ -139,5 +143,16 @@ public class storecontroller {
         dateMap2.put("countstore",countstore);
 
         return dateMap2;
+    }
+
+    //在预测之前 对输入的商家id先进行判断 看数据库中是否有这个商家
+    @CrossOrigin
+    @RequestMapping(value = "/predicted/selectbyid",method = RequestMethod.POST)
+    public int selectcountbyid(@RequestBody Map map)
+    {
+        int id=Integer.parseInt((String)map.get("id"));
+       int number= storeservice.selectcountbyid(id);
+       System.out.println(number);
+       return number;
     }
 }

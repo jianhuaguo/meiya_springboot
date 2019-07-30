@@ -1,6 +1,8 @@
 package com.mei.demo.Domain;
 
 public class OrderItem {
+
+    //年月日 订单数和订单额
     private String year;
     private int month;
     private int day;

@@ -35,7 +35,7 @@ public class myinterceptor implements HandlerInterceptor {
 
            HttpSession session=request.getSession();
            String status=(String)session.getAttribute("login");
-           System.out.println(status);
+         //  System.out.println(status);
 
 //           return true;
            if(status=="yes")

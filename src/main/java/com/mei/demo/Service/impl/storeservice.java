@@ -70,5 +70,7 @@ public class storeservice {
         return storedao.countstore();
     }
 
-
+    public int selectcountbyid(int id){
+        return storedao.selectcountbyid(id);
+    }
 }

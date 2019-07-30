@@ -13,15 +13,15 @@ public class admin {
     private Date time;
 
 
-    public admin(Integer id, String name, String phone, String password, String salt, Integer role, Date time) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.password = password;
-        this.salt = salt;
-        this.role = role;
-        this.time = time;
-    }
+//    public admin(Integer id, String name, String phone, String password, String salt, Integer role, Date time) {
+//        this.id = id;
+//        this.name = name;
+//        this.phone = phone;
+//        this.password = password;
+//        this.salt = salt;
+//        this.role = role;
+//        this.time = time;
+//    }
 
     public Integer getId() {
         return id;

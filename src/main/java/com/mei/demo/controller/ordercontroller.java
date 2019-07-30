@@ -24,8 +24,11 @@ public class ordercontroller {
     @Autowired
     private orderservice orderservice;
 
+    //返回某一个月的运营情况
+//    具体包括每天的订单总数和销售总额
     @CrossOrigin
     @RequestMapping(value = "/order/chart")
+    //默认为当前月 等八月份可改成八月份
     public Map<String,Object> orderchart(Model model, @RequestParam(value = "year_month", defaultValue = "2019-07")String year_month)
     {
         Map<String ,Object> dataMap = new HashMap<>();
@@ -70,6 +73,7 @@ public class ordercontroller {
         return dataMap;
     }
 
+    //对于得到的商家id 返回未来三天关于订单数和订单额度的预测
     @CrossOrigin
     @RequestMapping("/predicted")
     public Map<String,Object> predicted(Model model,@RequestParam(value = "shopid", defaultValue = "1")int shopid)
@@ -77,32 +81,36 @@ public class ordercontroller {
         Map<String ,Object> dataMap = new HashMap<>();
         ArrayList<OrderItem> orderItems=new ArrayList<OrderItem>();
 
-        orderItems=orderservice.selectrecent(shopid);
+        orderItems=orderservice.selectrecent(shopid);//最多只取三十天 可能不够三十天的数据
         double [] sum=new double[30];
         double [] count =new double[30];
         double []data=new double[30];
         for(int i=0;i<30;i++)
             data[i]=i+1;
         int j=0;
-        int da=orderItems.get(0).getDay();//取第一天
 
+        int da=Calendar.getInstance().get(Calendar.DAY_OF_MONTH);//取今天是第几天
+
+        int start=(da+31)%30;//开始的日子 忽略了大小月的问题
         for(OrderItem item : orderItems)
         {
-            if(da!=item.getDay())
-                j++;
-            sum[j]=item.getSum();
-            count[j]=item.getCount();//得到第一个数值，判断下一天有没有数字
-            da=item.getDay();
-            if(item.getMonth()==4||item.getMonth()==6||item.getMonth()==9||item.getMonth()==11)
-                da=(da+1)%30;
-            else
-                da=(da+1)%31;
-        }
+            sum[(item.getDay()+31-start)%30]=item.getSum();
+            count[(item.getDay()+31-start)%30]=item.getCount();//得到第一个数值，判断下一天有没有数字
 
+//            if(da!=item.getDay())//下一个有数值的不是这天 这天为零 取下一天
+//                j++;
+//
+//            da=item.getDay();
+//            if(item.getMonth()==4||item.getMonth()==6||item.getMonth()==9||item.getMonth()==11)
+//                da=(da+1)%30;
+//            else
+//                da=(da+1)%31;
+         }
 
+        System.out.println();
 
         LeastSquare leastSquare=new LeastSquare();
-        leastSquare.generateFormula(data,sum,3);
+        leastSquare.generateFormula(data,sum,3);//输入日期和
         double[] sum1=new double[3];
         double[] count1=new double[3];
         for(int i=0;i<3;i++)
@@ -124,6 +132,8 @@ public class ordercontroller {
         return dataMap;
     }
 
+    //主页的第一部分 包括今日销售单数 销售额
+//    昨日的销售单数和销售额
     @CrossOrigin()
     @RequestMapping("/homepage1")
     public Map<String,Object> homepage1()
@@ -141,7 +151,7 @@ public class ordercontroller {
         return dataMap;
     }
 
-
+//返回今日各个菜系销售额度最高的商家
     @CrossOrigin
     @RequestMapping(value = "/homepage4")
     public ArrayList<homepage4> homepage4()
@@ -149,13 +159,14 @@ public class ordercontroller {
         return orderservice.homepage4();
     }
 
-
+    //返回今日评分最高的前三名商家 参加评比的条件是这一天大于10
     @CrossOrigin
     @RequestMapping(value = "homepage5")
     public ArrayList<comment> homepage5(){
         return orderservice.bestcomment();
     }
 
+    //返回今日评分最低的前三名商家 参加评比的条件是这一天大于10
     @CrossOrigin
     @RequestMapping(value = "homepage6")
     public ArrayList<comment> homepage6(){

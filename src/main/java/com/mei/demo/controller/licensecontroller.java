@@ -17,6 +17,7 @@ public class licensecontroller {
     @Autowired
     private licenseservice licenseservice;
 
+    //选择审核或者未审核的商家列表
     @CrossOrigin
     @RequestMapping(value = "/store/license",method = RequestMethod.POST)
     public ArrayList<license> selectlicense(@RequestBody Map map)throws Exception
@@ -27,6 +28,7 @@ public class licensecontroller {
       return licenseservice.selectlicense(status);
     }
 
+    //商家通过审核
     @CrossOrigin
     @RequestMapping(value = "/store/passlicense")
     public int passlicense(@RequestBody Map map)
@@ -35,6 +37,7 @@ public class licensecontroller {
         return licenseservice.passlicense(id);
     }
 
+    //拒绝商家通过审核
     @CrossOrigin
     @RequestMapping(value = "/store/unpasslicense")
     public int unpasslicense(@RequestBody Map map)

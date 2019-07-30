@@ -18,6 +18,7 @@ public class categorycontroller {
     @Autowired
     private catecoryservice catecoryservice;
 
+    //得到数据库中所有现有菜系
     @CrossOrigin
     @RequestMapping(value = "/category/show",method = RequestMethod.GET)
     public ArrayList<Category> categoryinfo(HttpSession session, ModelMap model)

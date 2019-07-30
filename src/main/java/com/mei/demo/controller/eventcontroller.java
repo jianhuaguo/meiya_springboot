@@ -21,6 +21,7 @@ public class eventcontroller {
     private eventservice eventservice;
 
 
+    //获得所有秒杀活动 加上关键词搜索功能
     @CrossOrigin
     @RequestMapping(value = "seckill/selectall",method = RequestMethod.POST)
     public Map<String,Object> selectallevent(@RequestBody Map map)
@@ -39,6 +40,7 @@ public class eventcontroller {
         return map_send;
     }
 
+    //添加秒杀活动
     @CrossOrigin
     @RequestMapping(value = "/seckill/add",method = RequestMethod.POST)
     public int addedstore(@RequestBody event event)
@@ -50,6 +52,7 @@ public class eventcontroller {
         return suc;
     }
 
+    //编辑秒杀活动 主要是题目 开始时间 结束时间和具体描述
     @CrossOrigin
     @RequestMapping(value="/event/edited",method = RequestMethod.POST)
     public int editedevent(@RequestBody event event)
@@ -62,6 +65,7 @@ public class eventcontroller {
         return statu;
     }
 
+    //删除一个活动
     @CrossOrigin
     @RequestMapping(value = "/event/delete",method = RequestMethod.POST)
     public int deleteevent(@RequestBody Map  map)
@@ -70,6 +74,7 @@ public class eventcontroller {
         return eventservice.deleteevent(id);
     }
 
+    //上线或者下线一个秒杀活动
     @CrossOrigin
     @RequestMapping(value = "/event/changestatus",method = RequestMethod.POST)
     public int updatestatus(@RequestBody Map map)
@@ -79,6 +84,7 @@ public class eventcontroller {
         return eventservice.updateeventstatus(status,id);
     }
 
+    //选择结束时间还没到的秒杀活动 对秒杀活动进行审核
     @CrossOrigin
     @RequestMapping(value = "/event/future",method=RequestMethod.GET)
     public ArrayList<event> selectfuture()
@@ -88,6 +94,7 @@ public class eventcontroller {
         return list;
     }
 
+    //返回选择了活动id的秒杀活动
     @CrossOrigin
     @RequestMapping(value="/event/selectid",method = RequestMethod.POST)
     public ArrayList<event> selectid(@RequestBody Map map)
@@ -98,6 +105,7 @@ public class eventcontroller {
         return event;
     }
 
+    //返回参加某一场秒杀活动的所有食物
     @CrossOrigin
     @RequestMapping(value = "/event/foods",method = RequestMethod.POST)
     public ArrayList<seckillexamine> selectfood(@RequestBody Map map)
@@ -111,6 +119,7 @@ public class eventcontroller {
     }
 
 
+    //审核参加秒杀活动的食物
     @CrossOrigin
     @RequestMapping(value = "/events/updatefoodstatus",method = RequestMethod.POST)
     public int updatefoodstatus(@RequestBody Map map)

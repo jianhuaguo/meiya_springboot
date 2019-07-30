@@ -23,6 +23,7 @@ public class usercontroller {
     @Autowired
     private userservice userservice;
 
+    //显示所有的用户 包括分页和搜索框功能
     @CrossOrigin
     @RequestMapping(value = "/user/show",method = RequestMethod.POST)
     public Map<String,Object> usershow(@RequestBody Map map)
@@ -40,6 +41,7 @@ public class usercontroller {
         return map_send;
     }
 
+    //更新某些用户的信息
     @CrossOrigin
     @RequestMapping("/user/update")
     public int updatauser(@RequestBody User user)
@@ -47,6 +49,7 @@ public class usercontroller {
         return userservice.updateuser(user);
     }
 
+    //冻结或者解冻用户的状态
     @CrossOrigin
     @RequestMapping(value = "/user/changestatus/{id}",method = RequestMethod.PUT)
     public int updatestatus(@PathVariable("id")int id)
@@ -54,6 +57,8 @@ public class usercontroller {
         return userservice.updatestatu(id);
     }
 
+
+    //返回所有用户的概述 包括今日注册 所有用户等等
     @CrossOrigin
     @RequestMapping(value = "/homepage3")
     public Map<String,Object> homepage3()
@@ -71,6 +76,7 @@ public class usercontroller {
         return datemap;
     }
 
+    //通过导入excel批量生成用户
     @CrossOrigin
     @RequestMapping(value = "/batchinsert")
     public int  batchinsert(@RequestBody Map map)
