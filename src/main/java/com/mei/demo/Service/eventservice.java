@@ -1,5 +1,6 @@
 package com.mei.demo.Service;
 
+import com.mei.demo.Domain.eventsummary;
 import com.mei.demo.Domain.seckillexamine;
 import com.mei.demo.Domain.event;
 import com.mei.demo.Dao.eventdao;
@@ -58,5 +59,10 @@ public class eventservice {
     public int updatesecfoodstatus(int id)
     {
         return eventdao.updatestatus(id);
+    }
+
+    public ArrayList<eventsummary> eventsumma()
+    {
+        return eventdao.eventsummary();
     }
 }

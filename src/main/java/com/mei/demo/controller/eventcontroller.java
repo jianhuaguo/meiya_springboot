@@ -1,5 +1,6 @@
 package com.mei.demo.controller;
 
+import com.mei.demo.Domain.eventsummary;
 import com.mei.demo.Domain.seckillexamine;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -127,5 +128,13 @@ public class eventcontroller {
         int id=(Integer)map.get("id");
         return eventservice.updatesecfoodstatus(id);
 
+    }
+
+    //对于已经结束的活动进行总结
+    @CrossOrigin
+    @RequestMapping(value = "/event/summary",method = RequestMethod.POST)
+    public ArrayList<eventsummary> eventsum()
+    {
+        return eventservice.eventsumma();
     }
 }

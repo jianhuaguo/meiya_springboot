@@ -1,6 +1,7 @@
 package com.mei.demo.Dao;
 
 import com.mei.demo.Domain.event;
+import com.mei.demo.Domain.eventsummary;
 import com.mei.demo.Domain.seckillexamine;
 
 import org.apache.ibatis.annotations.*;
@@ -47,5 +48,11 @@ public interface eventdao {
 
     @Update("update my_seckill set `status`=1 where id= #{id}")
     public int updatestatus(int id);
+
+    //统计一下秒杀活动的大概情况
+    @Select(" select max(my_events.`name`) as name,count(goods_id) as foodcount,max(my_events.start_time) as start_time,max(my_events.end_time) as end_time,count(sid) as storecount from my_seckill LEFT JOIN my_events on my_seckill.events_id=my_events.id  " +
+            " where end_time<now() " +
+            " GROUP BY events_id")
+    public ArrayList<eventsummary> eventsummary();
 
 }
