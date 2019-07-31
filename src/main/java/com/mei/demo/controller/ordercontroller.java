@@ -1,6 +1,9 @@
 package com.mei.demo.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.mei.demo.Algorithm.LeastSquare;
+import com.mei.demo.Domain.Order;
 import com.mei.demo.Domain.OrderItem;
 import com.mei.demo.Domain.homepage4;
 import com.mei.demo.Domain.comment;
@@ -171,5 +174,28 @@ public class ordercontroller {
     @RequestMapping(value = "homepage6")
     public ArrayList<comment> homepage6(){
         return orderservice.worsecomment();
+    }
+
+
+    //获得所有秒杀活动 加上关键词搜索功能
+    @CrossOrigin
+    @RequestMapping(value = "order/orderlist",method = RequestMethod.POST)
+    public Map<String,Object> allorder(@RequestBody Map map)
+    {
+
+        String  store_id=(String)map.get("store_id");
+        String  user_id=(String)map.get("user_id");
+        System.out.println(store_id);
+        System.out.println(user_id);
+        int pageNum=(Integer)map.get("currentPage");
+        int pagesize=(Integer)map.get("pagesize");
+        Page<Order> page= PageHelper.startPage(pageNum,pagesize);
+        ArrayList<Order> orderdata=orderservice.allorder(store_id,user_id);
+
+        Map<String, Object> map_send= new HashMap<String, Object>();
+        map_send.put("orderdata",page);
+        map_send.put("number",page.getTotal());
+
+        return map_send;
     }
 }

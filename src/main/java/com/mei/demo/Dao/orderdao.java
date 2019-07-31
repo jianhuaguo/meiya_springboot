@@ -1,6 +1,7 @@
 package com.mei.demo.Dao;
 
 
+import com.mei.demo.Domain.Order;
 import com.mei.demo.Domain.homepage4;
 import com.mei.demo.Domain.OrderItem;
 import com.mei.demo.Domain.comment;
@@ -67,5 +68,8 @@ public interface orderdao {
             "order by avg(Score) asc LIMIT 0,3")
     public ArrayList<comment> worstcomment();
 
+
+    @Select("select * from my_order where  store_id =#{store_id}  or user_id =#{user_id}  or  if(( #{store_id} ='' and #{user_id} = '' ),'1','0') ")
+    public ArrayList<Order> allorder(String store_id,String user_id);
 
 }

@@ -1,5 +1,6 @@
 package com.mei.demo.Service;
 
+import com.mei.demo.Domain.Order;
 import com.mei.demo.Domain.comment;
 import com.mei.demo.Domain.homepage4;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,10 @@ public class orderservice {
     public ArrayList<comment> worsecomment()
     {
         return orderdao.worstcomment();
+    }
+
+    public ArrayList<Order> allorder(String store_id,String user_id)
+    {
+       return orderdao.allorder(store_id, user_id);
     }
 }

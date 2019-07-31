@@ -8,11 +8,11 @@ import java.util.Date;
 
 
 public class Order implements Serializable {
-    private Integer id;
+    private Long id;
 
-    private Long orderNo;
+    private Integer store_id;
 
-    private Integer userId;
+    private Integer user_id;
 
     private Integer shippingId;
 
@@ -26,7 +26,7 @@ public class Order implements Serializable {
     private Integer status;
 
     //付款时间
-    private Date paymentTime;
+    private Date payment_time;
 
     private Date sendTime;
 
@@ -38,49 +38,60 @@ public class Order implements Serializable {
 
     private Date updateTime;
 
-    public Order(Integer id, Long orderNo, Integer userId, Integer shippingId, BigDecimal payment, Integer paymentType, Integer postage, Integer status, Date paymentTime, Date sendTime, Date endTime, Date closeTime, Date createTime, Date updateTime) {
-        this.id = id;
-        this.orderNo = orderNo;
-        this.userId = userId;
-        this.shippingId = shippingId;
-        this.payment = payment;
-        this.paymentType = paymentType;
-        this.postage = postage;
-        this.status = status;
-        this.paymentTime = paymentTime;
-        this.sendTime = sendTime;
-        this.endTime = endTime;
-        this.closeTime = closeTime;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
+//    public Order(Long id, Long orderNo, Integer userId, Integer shippingId, BigDecimal payment, Integer paymentType, Integer postage, Integer status, Date paymentTime, Date sendTime, Date endTime, Date closeTime, Date createTime, Date updateTime) {
+//        this.id = id;
+//        this.orderNo = orderNo;
+//        this.userId = userId;
+//        this.shippingId = shippingId;
+//        this.payment = payment;
+//        this.paymentType = paymentType;
+//        this.postage = postage;
+//        this.status = status;
+//        this.paymentTime = paymentTime;
+//        this.sendTime = sendTime;
+//        this.endTime = endTime;
+//        this.closeTime = closeTime;
+//        this.createTime = createTime;
+//        this.updateTime = updateTime;
+//    }
+
+
+    public Integer getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(Integer store_id) {
+        this.store_id = store_id;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+
+    public Date getPayment_time() {
+        return payment_time;
+    }
+
+    public void setPayment_time(Date payment_time) {
+        this.payment_time = payment_time;
     }
 
     public Order() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getOrderNo() {
-        return orderNo;
-    }
 
-    public void setOrderNo(Long orderNo) {
-        this.orderNo = orderNo;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public Integer getShippingId() {
         return shippingId;
@@ -122,13 +133,7 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public Date getPaymentTime() {
-        return paymentTime;
-    }
 
-    public void setPaymentTime(Date paymentTime) {
-        this.paymentTime = paymentTime;
-    }
 
     public Date getSendTime() {
         return sendTime;
