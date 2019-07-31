@@ -45,8 +45,8 @@ public class ordercontroller {
         //传三个数组过去就行了
         int allcount=0;
         double allsum=0;
-        double [] sum=new double[31];
-        int [] count =new int[31];
+        double [] sum=new double[32];
+        int [] count =new int[32];
         int []data=new int[31];
         for(int i=0;i<31;i++)
             data[i]=i+1;
@@ -64,15 +64,6 @@ public class ordercontroller {
         dataMap.put("allsum",allsum);
         dataMap.put("allcount",allcount);
 
-//        model.addAttribute("data",data);
-//        model.addAttribute("sum",sum);
-//        model.addAttribute("count",count);
-//        model.addAttribute("allcount",allcount);
-//        model.addAttribute("allsum",allsum);
-//        Date date = new SimpleDateFormat("yyyy-MM").parse(year_month);
-//        String now = new SimpleDateFormat("yyyy年MM月").format(date);
-//
-//        model.addAttribute("year_month",now);
         return dataMap;
     }
 

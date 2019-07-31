@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public interface storesummarydao {
 
     //返回指定天数所有商家的日报
-    @Select("select max(store_id) as store_id,max(my_store.storename) as storename,max(phone) as storephone,count(*) as ordercount,sum(payment) as ordersum, (select count(*) from (select count(user_id) from my_order LEFT JOIN my_store on my_order.store_id=my_store.id  WHERE CAST(my_order.payment_time as DATE)  " +
-            " = #{orderday}  GROUP BY user_id) as a)  as usercount "
-            +
+    @Select("select max(store_id) as store_id,max(my_store.storename) as storename,max(phone) as storephone,count(*) as ordercount,sum(payment) as ordersum, " +
+            " (select count(*) from (select count(user_id) from my_order WHERE  my_order.store_id=my_store.id  and  CAST(my_order.payment_time as DATE)= #{orderday}  GROUP BY user_id) as a)  " +
+            " as usercount " +
             " from my_order LEFT JOIN my_store on my_order.store_id=my_store.id " +
             " WHERE  CAST(my_order.payment_time as DATE)= #{orderday} " +
             " GROUP BY store_id ")
@@ -22,16 +22,19 @@ public interface storesummarydao {
 
 
     //返回指定月份所有商家的月报
-    @Select(" select max(store_id) as store_id,max(my_store.storename) as storename,max(phone) as storephone,count(*) as ordercount,sum(payment) as ordersum, (select count(*) from (select count(user_id) from my_order LEFT JOIN my_store on my_order.store_id=my_store.id  WHERE date_format(payment_time,'%Y-%m') " +
-            " = #{ordermonth}  GROUP BY user_id) as a)  as usercount " +
+    @Select(" select max(store_id) as store_id,max(my_store.storename) as storename,max(phone) as storephone,count(*) as ordercount,sum(payment) as ordersum , " +
+            " (select count(*) from (select count(user_id) from my_order WHERE  my_order.store_id=my_store.id  and  date_format(payment_time,'%Y-%m')  = #{ordermonth}  GROUP BY user_id) as a)  " +
+            " as usercount  " +
             " from my_order LEFT JOIN my_store on my_order.store_id=my_store.id " +
             " WHERE date_format(payment_time,'%Y-%m')   = #{ordermonth} " +
             " GROUP BY store_id")
     public  ArrayList<storesummary> ordermonth(String ordermonth);
 
     //返回指定年份所有商家的年报
-    @Select(" select max(store_id) as store_id,max(my_store.storename) as storename,max(phone) as storephone,count(*) as ordercount,sum(payment) as ordersum, (select count(*) from (select count(user_id) from my_order LEFT JOIN my_store on my_order.store_id=my_store.id  WHERE date_format(payment_time,'%Y') " +
-            " = #{orderyear}  GROUP BY user_id) as a)  as usercount " +
+    @Select(" select max(store_id) as store_id,max(my_store.storename) as storename,max(phone) as storephone,count(*) as ordercount,sum(payment) as ordersum , " +
+            " (select count(*) from " +
+            " (select count(user_id) from my_order WHERE  my_order.store_id=my_store.id  and  date_format(payment_time,'%Y')   = #{orderyear}   GROUP BY user_id) as a)  " +
+            " as usercount  " +
             " from my_order LEFT JOIN my_store on my_order.store_id=my_store.id " +
             " WHERE date_format(payment_time,'%Y')   = #{orderyear} " +
             " GROUP BY store_id")
