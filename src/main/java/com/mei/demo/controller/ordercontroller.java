@@ -32,7 +32,7 @@ public class ordercontroller {
     @CrossOrigin
     @RequestMapping(value = "/order/chart")
     //默认为当前月 等八月份可改成八月份
-    public Map<String,Object> orderchart(Model model, @RequestParam(value = "year_month", defaultValue = "2019-07")String year_month)
+    public Map<String,Object> orderchart(Model model, @RequestParam(value = "year_month", defaultValue = "2019-08")String year_month)
     {
         Map<String ,Object> dataMap = new HashMap<>();
         ArrayList<OrderItem> orderItems=new ArrayList<OrderItem>();
@@ -45,15 +45,15 @@ public class ordercontroller {
         //传三个数组过去就行了
         int allcount=0;
         double allsum=0;
-        double [] sum=new double[32];
-        int [] count =new int[32];
+        double [] sum=new double[31];
+        int [] count =new int[31];
         int []data=new int[31];
         for(int i=0;i<31;i++)
             data[i]=i+1;
         for(OrderItem item : orderItems)
         {
-            sum[item.getDay()]=item.getSum();
-            count[item.getDay()]=item.getCount();
+            sum[item.getDay()-1]=item.getSum();
+            count[item.getDay()-1]=item.getCount();
             allcount+=item.getCount();
             allsum+=item.getSum();
         }
